@@ -12,7 +12,6 @@ import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import swaggerSpec from "./config/swagger.js"; // ✅ Import OpenAPI JSON
 import routes from "./routes/index.js";
 import errorHandler from "./middleware/errorHandler.js";
 
@@ -53,11 +52,6 @@ app.use(
 // ✅ Enable Compression & Logging
 app.use(compression());
 app.use(morgan("dev"));
-
-// ✅ Serve OpenAPI JSON dynamically from `swagger.js`
-app.get("/openapi.json", (req, res) => {
-  res.json(swaggerSpec);
-});
 
 // ✅ Mount API Routes
 app.use("/api", routes);
