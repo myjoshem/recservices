@@ -56,6 +56,11 @@ app.use(morgan("dev"));
 // ✅ Mount API Routes
 app.use("/api", routes);
 
+// ✅ Default Root Route to Confirm Service is Running
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Rec Services API. Use /api for endpoints." });
+});
+
 // ✅ Error Handling Middleware
 app.use(errorHandler);
 
@@ -63,5 +68,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📖 API Docs available at http://localhost:${PORT}/docs`);
+  console.log(`📖 API is live at http://localhost:${PORT}/api`);
 });
