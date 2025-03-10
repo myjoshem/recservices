@@ -66,7 +66,10 @@ app.use(errorHandler);
 
 // ✅ Start the server
 const PORT = process.env.PORT || 8080;
+const IS_RENDER = process.env.RENDER === "true"; // ✅ Render sets this automatically
+const BASE_URL = IS_RENDER ? process.env.RENDER_EXTERNAL_URL : `http://localhost:${PORT}`;
+
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📖 API is live at http://localhost:${PORT}/api`);
+  console.log(`🚀 Server running at ${BASE_URL}`);
+  console.log(`📖 API is live at ${BASE_URL}/api`);
 });
