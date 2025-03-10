@@ -12,7 +12,6 @@ import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import redoc from "redoc-express";
 import swaggerSpec from "./config/swagger.js"; // ✅ Import OpenAPI JSON
 import routes from "./routes/index.js";
 import errorHandler from "./middleware/errorHandler.js";
@@ -40,7 +39,7 @@ app.use(
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "https://unpkg.com", "'unsafe-inline'", "'unsafe-eval'"],
         styleSrc: ["'self'", "https://fonts.googleapis.com", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https://unpkg.com", "https://cdn.redoc.ly"],
+        imgSrc: ["'self'", "data:", "https://unpkg.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
         connectSrc: ["'self'", "https://unpkg.com", "http://localhost:8080"],
         frameAncestors: ["'self'"],
@@ -59,15 +58,6 @@ app.use(morgan("dev"));
 app.get("/openapi.json", (req, res) => {
   res.json(swaggerSpec);
 });
-
-// ✅ Serve API Docs using Redoc
-app.get(
-  "/docs",
-  redoc({
-    title: "Rec Services API Docs",
-    specUrl: "/openapi.json",
-  })
-);
 
 // ✅ Mount API Routes
 app.use("/api", routes);
